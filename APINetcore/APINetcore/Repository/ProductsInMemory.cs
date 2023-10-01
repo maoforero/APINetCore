@@ -3,7 +3,7 @@ using APINetcore.Models;
 
 namespace APINetcore.Repository
 {
-	public class ProductsInMemory
+	public class ProductsInMemory: IProductsInMemory
 	{
 		public readonly List<Models.Product> products = new()
 		{

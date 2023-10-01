@@ -9,11 +9,11 @@ namespace APINetcore.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ProductsInMemory _productsInMemory;
+        private readonly IProductsInMemory _productsInMemory;
 
-        public ProductController()
+        public ProductController(IProductsInMemory productsInMemory)
         {
-            _productsInMemory = new ProductsInMemory();
+            this._productsInMemory = productsInMemory;
         }
 
         [HttpGet]

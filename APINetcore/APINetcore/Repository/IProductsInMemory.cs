@@ -7,8 +7,6 @@ namespace APINetcore.Repository
 	{
         IEnumerable<Product> GetAllProducts();
         Product GetProduct(int id);
-
-
     }
 }
 
