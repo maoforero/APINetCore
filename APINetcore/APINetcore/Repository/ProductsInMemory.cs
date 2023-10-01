@@ -18,6 +18,11 @@ namespace APINetcore.Repository
 		{
 			return products;
 		}
+
+		public Product GetProduct(int id)
+		{
+			return products.Where(p => p.Id == id).SingleOrDefault();
+		}
 	}
 }
 
