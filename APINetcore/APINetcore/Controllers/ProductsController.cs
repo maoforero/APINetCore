@@ -34,6 +34,24 @@ namespace APINetcore.Controllers
 
             return product;
         }
+
+        [HttpPost]
+        public ActionResult<ProductDTO> AddProduct(ProductDTO p)
+        {
+            Product product = new Product
+            {
+                Id = _productsInMemory.GetAllProducts().Max(x => x.Id) + 1,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                SKU = p.SKU,
+                DateClose = DateTime.Now,
+            };
+
+            _productsInMemory.AddProduct(product);
+
+            return product.TransformToDTO();
+        }
     }
 }
 

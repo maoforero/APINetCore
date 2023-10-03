@@ -7,6 +7,7 @@ namespace APINetcore.Repository
 	{
         IEnumerable<Product> GetAllProducts();
         Product GetProduct(string SKU);
+        void AddProduct(Product p);
     }
 }
 

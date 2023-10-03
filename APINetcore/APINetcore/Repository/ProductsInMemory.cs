@@ -23,6 +23,11 @@ namespace APINetcore.Repository
 		{
 			return products.Where(p => p.SKU == SKU).SingleOrDefault();
 		}
+
+		public void AddProduct(Product p)
+		{
+			products.Add(p);
+		}
 	}
 }
 
