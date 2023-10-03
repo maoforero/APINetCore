@@ -6,7 +6,7 @@ namespace APINetcore.Repository
 	public interface IProductsInMemory
 	{
         IEnumerable<Product> GetAllProducts();
-        Product GetProduct(int id);
+        Product GetProduct(string SKU);
     }
 }
 

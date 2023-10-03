@@ -2,6 +2,8 @@
 using APINetcore.Repository;
 using APINetcore.Models;
 using Microsoft.AspNetCore.Mvc;
+using APINetcore.DTO;
+using Utils;
 
 namespace APINetcore.Controllers
 {
@@ -17,16 +19,16 @@ namespace APINetcore.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<ProductDTO> GetAllProducts()
         {
-            var listProducts = _productsInMemory.GetAllProducts();
+            var listProducts = _productsInMemory.GetAllProducts().Select(p => p.TransformToDTO());
             return listProducts;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Product> GetProduct(int id)
+        [HttpGet("{code}")]
+        public ActionResult<ProductDTO> GetProduct(string code)
         {
-            var product = _productsInMemory.GetProduct(id);
+            var product = _productsInMemory.GetProduct(code).TransformToDTO();
 
             if (product is null) return NotFound();
 

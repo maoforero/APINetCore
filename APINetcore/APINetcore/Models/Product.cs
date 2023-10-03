@@ -8,6 +8,7 @@ namespace APINetcore.Models
 		public string Description { get; set; }
 		public double Price { get; set; }
 		public DateTime DateClose { get; init; }
+		public string SKU { get; set; }
 	}
 }
 
