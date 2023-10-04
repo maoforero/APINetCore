@@ -28,6 +28,13 @@ namespace APINetcore.Repository
 		{
 			products.Add(p);
 		}
-	}
+
+        public void UpdateProduct(Product p)
+        {
+			var matchingIndex = products.FindIndex(validProduct => validProduct.Id == p.Id);
+
+			products[matchingIndex] = p;
+        }
+    }
 }
 

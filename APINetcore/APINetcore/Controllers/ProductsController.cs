@@ -52,6 +52,25 @@ namespace APINetcore.Controllers
 
             return product.TransformToDTO();
         }
+
+
+        [HttpPut]
+        public ActionResult<ProductDTO> UpdateProduct(string code , ProductUpdatedDTO p)
+        {
+            Product validProduct = _productsInMemory.GetProduct(code);
+
+            if(validProduct is null)
+            {
+                return NotFound();
+            }
+
+            validProduct.Name = p.Name;
+            validProduct.Description = p.Description;
+            validProduct.Price = p.Price;
+
+            return validProduct.TransformToDTO();
+
+        }
     }
 }
 
