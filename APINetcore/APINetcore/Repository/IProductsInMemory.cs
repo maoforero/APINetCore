@@ -9,6 +9,7 @@ namespace APINetcore.Repository
         Product GetProduct(string SKU);
         void AddProduct(Product p);
         void UpdateProduct(Product p);
+        void DeleteProduct(string SKU);
     }
 }
 

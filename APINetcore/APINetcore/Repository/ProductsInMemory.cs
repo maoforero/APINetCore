@@ -31,9 +31,15 @@ namespace APINetcore.Repository
 
         public void UpdateProduct(Product p)
         {
-			var matchingIndex = products.FindIndex(validProduct => validProduct.Id == p.Id);
+			int matchingIndex = products.FindIndex(validProduct => validProduct.Id == p.Id);
 
 			products[matchingIndex] = p;
+        }
+
+        public void DeleteProduct(string SKU)
+        {
+			int matchingIndex = products.FindIndex(validProduct => validProduct.SKU == SKU);
+			products.RemoveAt(matchingIndex);
         }
     }
 }

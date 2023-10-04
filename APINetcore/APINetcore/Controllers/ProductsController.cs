@@ -73,6 +73,17 @@ namespace APINetcore.Controllers
             return validProduct.TransformToDTO();
 
         }
+
+        [HttpDelete]
+        public ActionResult DeleteProduct(string SKU)
+        {
+            Product product = _productsInMemory.GetProduct(SKU);
+            if (product is null) return NotFound();
+
+            _productsInMemory.DeleteProduct(product.SKU);
+
+            return NoContent();
+        }
     }
 }
 
