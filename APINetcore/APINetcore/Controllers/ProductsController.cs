@@ -68,6 +68,8 @@ namespace APINetcore.Controllers
             validProduct.Description = p.Description;
             validProduct.Price = p.Price;
 
+            _productsInMemory.UpdateProduct(validProduct);
+
             return validProduct.TransformToDTO();
 
         }
