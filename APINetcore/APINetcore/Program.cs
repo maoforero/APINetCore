@@ -1,9 +1,11 @@
-﻿using APINetcore.Repository;
+﻿using APINetcore.DBManagement;
+using APINetcore.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var SQLConnectionString = new DataAccess(builder.Configuration.GetConnectionString("SQL"));
 builder.Services.AddSingleton<IProductsInMemory, ProductsInMemory>();
 builder.Services.AddControllers();
 
