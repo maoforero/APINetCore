@@ -25,7 +25,7 @@ namespace APINetcore.Repository
             throw new NotImplementedException();
         }
 
-        public void UpdateProduct(Product p
+        public void UpdateProduct(Product p)
         {
             throw new NotImplementedException();
         }
