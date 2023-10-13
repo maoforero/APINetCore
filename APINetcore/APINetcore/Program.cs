@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var SQLConnectionString = new DataAccess(builder.Configuration.GetConnectionString("SQL"));
+builder.Services.AddSingleton(SQLConnectionString);
 builder.Services.AddSingleton<IProductsInMemory, ProductsSQLServer>();
 builder.Services.AddControllers();
 
