@@ -40,7 +40,6 @@ namespace APINetcore.Controllers
         {
             Product product = new Product
             {
-                Id = _productsInMemory.GetAllProducts().Max(x => x.Id) + 1,
                 Name = p.Name,
                 Description = p.Description,
                 Price = p.Price,

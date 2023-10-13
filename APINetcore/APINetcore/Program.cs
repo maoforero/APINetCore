@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var SQLConnectionString = new DataAccess(builder.Configuration.GetConnectionString("SQL"));
-builder.Services.AddSingleton<IProductsInMemory, ProductsInMemory>();
+builder.Services.AddSingleton<IProductsInMemory, ProductsSQLServer>();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
