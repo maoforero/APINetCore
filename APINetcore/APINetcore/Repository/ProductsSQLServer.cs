@@ -20,7 +20,7 @@ namespace APINetcore.Repository
             return new SqlConnection(_ConnectionString);
         }
 
-        public async Task AddProduct(Product p)
+        public async Task AddProductAsinc(Product p)
         {
             SqlConnection sqlConnection = conexion();
             SqlCommand cmd = null;
@@ -79,7 +79,7 @@ namespace APINetcore.Repository
             await Task.CompletedTask;
         }
 
-        public async Task<IEnumerable> GetAllProductsAsinc()
+        public async Task<IEnumerable<Product>> GetAllProductsAsinc()
         {
             SqlConnection sqlConnection = conexion();
             SqlCommand cmd = null;
