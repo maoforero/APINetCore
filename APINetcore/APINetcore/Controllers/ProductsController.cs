@@ -67,7 +67,7 @@ namespace APINetcore.Controllers
             validProduct.Description = p.Description;
             validProduct.Price = p.Price;
 
-            _productsInMemory.UpdateProductAsinc(validProduct);
+            await _productsInMemory.UpdateProductAsinc(validProduct);
 
             return validProduct.TransformToDTO();
 
@@ -79,7 +79,7 @@ namespace APINetcore.Controllers
             Product product = await _productsInMemory.GetProductAsinc(SKU);
             if (product is null) return NotFound();
 
-            _productsInMemory.DeleteProductAsinc(product.SKU);
+            await _productsInMemory.DeleteProductAsinc(product.SKU);
 
             return NoContent();
         }
