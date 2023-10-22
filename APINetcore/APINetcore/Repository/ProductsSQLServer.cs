@@ -1,5 +1,6 @@
 ﻿using APINetcore.DBManagement;
 using APINetcore.Models;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -19,7 +20,7 @@ namespace APINetcore.Repository
             return new SqlConnection(_ConnectionString);
         }
 
-        public void AddProduct(Product p)
+        public async Task AddProduct(Product p)
         {
             SqlConnection sqlConnection = conexion();
             SqlCommand cmd = null;
@@ -34,6 +35,9 @@ namespace APINetcore.Repository
                 cmd.Parameters.Add("@Description", SqlDbType.VarChar, 5000).Value = p.Description;
                 cmd.Parameters.Add("@Precio", SqlDbType.Float).Value = p.Price;
                 cmd.Parameters.Add("@SKU", SqlDbType.VarChar, 100).Value = p.SKU;
+
+                await cmd.ExecuteNonQueryAsync();
+                await Task.CompletedTask;
             }
             catch (Exception e)
             {
@@ -45,24 +49,47 @@ namespace APINetcore.Repository
                 sqlConnection.Close();
                 sqlConnection.Dispose();
             }
+            await Task.CompletedTask;
         }
 
-        public void DeleteProduct(string SKU)
+        public async Task DeleteProductAsinc(string SKU)
+        {
+            SqlConnection sqlConnection = conexion();
+            SqlCommand cmd = null;
+
+            try
+            {
+                sqlConnection.Open();
+                cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "dbo.Productos_Borrar";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@SKU", SqlDbType.VarChar, 100).Value=SKU;
+                await cmd.ExecuteNonQueryAsync();
+                await Task.CompletedTask;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("[!] Error deleting a product: " + e.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+                sqlConnection.Dispose();
+            }
+            await Task.CompletedTask;
+        }
+
+        public Task<IEnumerable> GetAllProductsAsinc()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public Task<Product> GetProductAsinc(string SKU)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetProduct(string SKU)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateProduct(Product p)
+        public Task UpdateProductAsinc(Product p)
         {
             throw new NotImplementedException();
         }

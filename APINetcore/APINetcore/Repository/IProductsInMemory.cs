@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections;
 using APINetcore.Models;
 
 namespace APINetcore.Repository
 {
 	public interface IProductsInMemory
 	{
-        IEnumerable<Product> GetAllProducts();
-        Product GetProduct(string SKU);
-        void AddProduct(Product p);
-        void UpdateProduct(Product p);
-        void DeleteProduct(string SKU);
+        Task<IEnumerable> GetAllProductsAsinc();
+        Task<Product> GetProductAsinc(string SKU);
+        Task AddProductAsinc(Product p);
+        Task UpdateProductAsinc(Product p);
+        Task DeleteProductAsinc(string SKU);
     }
 }
 
