@@ -19,16 +19,16 @@ namespace APINetcore.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductDTO> GetAllProducts()
+        public async Task <IEnumerable<ProductDTO>> GetAllProducts()
         {
-            var listProducts = _productsInMemory.GetAllProducts().Select(p => p.TransformToDTO());
+            var listProducts = (await _productsInMemory.GetAllProductsAsinc()).Select(p => p.TransformToDTO());
             return listProducts;
         }
 
         [HttpGet("{code}")]
-        public ActionResult<ProductDTO> GetProduct(string code)
+        public async Task<ActionResult<ProductDTO>> GetProduct(string code)
         {
-            var product = _productsInMemory.GetProduct(code).TransformToDTO();
+            var product = (await _productsInMemory.GetProductAsinc(code)).TransformToDTO();
 
             if (product is null) return NotFound();
 
@@ -36,7 +36,7 @@ namespace APINetcore.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ProductDTO> AddProduct(ProductDTO p)
+        public async Task <ActionResult<ProductDTO>> AddProduct(ProductDTO p)
         {
             Product product = new Product
             {
@@ -47,16 +47,16 @@ namespace APINetcore.Controllers
                 DateClose = DateTime.Now,
             };
 
-            _productsInMemory.AddProduct(product);
+            await _productsInMemory.AddProductAsinc(product);
 
             return product.TransformToDTO();
         }
 
 
         [HttpPut]
-        public ActionResult<ProductDTO> UpdateProduct(string code , ProductUpdatedDTO p)
+        public async Task<ActionResult<ProductDTO>> UpdateProduct(string code , ProductUpdatedDTO p)
         {
-            Product validProduct = _productsInMemory.GetProduct(code);
+            Product validProduct = await _productsInMemory.GetProductAsinc(code);
 
             if(validProduct is null)
             {
@@ -67,19 +67,19 @@ namespace APINetcore.Controllers
             validProduct.Description = p.Description;
             validProduct.Price = p.Price;
 
-            _productsInMemory.UpdateProduct(validProduct);
+            _productsInMemory.UpdateProductAsinc(validProduct);
 
             return validProduct.TransformToDTO();
 
         }
 
         [HttpDelete]
-        public ActionResult DeleteProduct(string SKU)
+        public async Task<ActionResult> DeleteProduct(string SKU)
         {
-            Product product = _productsInMemory.GetProduct(SKU);
+            Product product = await _productsInMemory.GetProductAsinc(SKU);
             if (product is null) return NotFound();
 
-            _productsInMemory.DeleteProduct(product.SKU);
+            _productsInMemory.DeleteProductAsinc(product.SKU);
 
             return NoContent();
         }
