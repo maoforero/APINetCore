@@ -79,12 +79,47 @@ namespace APINetcore.Repository
             await Task.CompletedTask;
         }
 
-        public Task<IEnumerable> GetAllProductsAsinc()
+        public async Task<IEnumerable> GetAllProductsAsinc()
         {
-            throw new NotImplementedException();
+            SqlConnection sqlConnection = conexion();
+            SqlCommand cmd = null;
+            List<Product> products = new List<Product>();
+            Product p = null;
+
+            try
+            {
+                sqlConnection.Open();
+                cmd = sqlConnection.CreateCommand();
+                cmd.CommandText = "";
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                while (reader.Read())
+                {
+                    p = new Product
+                    {
+                        Name = reader["name"].ToString(),
+                        Description = reader["description"].ToString(),
+                        Price = Convert.ToDouble(reader["price"].ToString()),
+                        SKU = reader["SKU"].ToString()
+                    };
+
+                    products.Add(p);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("[!] Error getting all products. " + e.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return products;
         }
 
-        public Task<Product> GetProductAsinc(string SKU)
+        public async Task<Product> GetProductAsinc(string SKU)
         {
             throw new NotImplementedException();
         }
