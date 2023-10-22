@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using APINetcore.Models;
 
 namespace APINetcore.Repository
@@ -14,33 +15,39 @@ namespace APINetcore.Repository
 			new Models.Product {Id = 5, Name = "Detodito", Description = "Chips", Price = 800.99, DateClose = DateTime.Now.AddMonths(-4), SKU = "SKU101"},
 		};
 
-		public IEnumerable<Product> GetAllProducts()
+		public async Task<IEnumerable<Product>> GetAllProductsAsinc()
 		{
-			return products;
+			return await Task.FromResult(products);
 		}
 
-		public Product GetProduct(string SKU)
+		public async Task<Product> GetProductAsinc(string SKU)
 		{
-			return products.Where(p => p.SKU == SKU).SingleOrDefault();
+			return await Task.FromResult(products.Where(p => p.SKU == SKU).SingleOrDefault());
 		}
 
-		public void AddProduct(Product p)
+		public async Task AddProductAsinc(Product p)
 		{
 			products.Add(p);
+			await Task.CompletedTask;
 		}
 
-        public void UpdateProduct(Product p)
+        public async Task UpdateProductAsinc(Product p)
         {
 			int matchingIndex = products.FindIndex(validProduct => validProduct.Id == p.Id);
 
 			products[matchingIndex] = p;
+			await Task.CompletedTask;
         }
 
-        public void DeleteProduct(string SKU)
+        public async Task DeleteProductAsinc(string SKU)
         {
 			int matchingIndex = products.FindIndex(validProduct => validProduct.SKU == SKU);
 			products.RemoveAt(matchingIndex);
+
+			await Task.CompletedTask;
         }
+
+
     }
 }
 

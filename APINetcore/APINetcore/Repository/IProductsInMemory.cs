@@ -6,7 +6,7 @@ namespace APINetcore.Repository
 {
 	public interface IProductsInMemory
 	{
-        Task<IEnumerable> GetAllProductsAsinc();
+        Task<IEnumerable<Product>> GetAllProductsAsinc();
         Task<Product> GetProductAsinc(string SKU);
         Task AddProductAsinc(Product p);
         Task UpdateProductAsinc(Product p);
