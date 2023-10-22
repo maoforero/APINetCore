@@ -1,5 +1,6 @@
 ﻿using APINetcore.DBManagement;
 using APINetcore.Repository;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 var SQLConnectionString = new DataAccess(builder.Configuration.GetConnectionString("SQL"));
 builder.Services.AddSingleton(SQLConnectionString);
 builder.Services.AddSingleton<IProductsInMemory, ProductsSQLServer>();
-builder.Services.AddControllers();
+builder.Services.AddControllers(Options =>
+{
+    Options.SuppressAsyncSuffixInActionNames = false;
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
